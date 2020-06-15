@@ -1,8 +1,21 @@
 import React, { useState } from "react";
-import Home from "./screens/Home";
+import * as Font from "expo-font";
+import { AppLoading } from "expo";
+import Navigator from "./routes/homestack";
+
+const getFonts = () =>
+  Font.loadAsync({
+    "raleway-regular": require("./assets/fonts/Raleway-Regular.ttf"),
+    "raleway-bold": require("./assets/fonts/Raleway-Bold.ttf"),
+  });
 
 export default function App() {
-  return <Home />;
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  if (fontsLoaded) {
+    return <Navigator />;
+  } else {
+    return (
+      <AppLoading startAsync={getFonts} onFinish={() => setFontsLoaded(true)} />
+    );
+  }
 }
-
-const styles = StyleSheet.create({});
